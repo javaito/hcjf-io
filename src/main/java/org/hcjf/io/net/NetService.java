@@ -118,7 +118,7 @@ public final class NetService extends Service<NetServiceConsumer> {
      * @throws RuntimeException         With a IOException like a cause.
      */
     @Override
-    public final void registerConsumer(NetServiceConsumer consumer) {
+    public void registerConsumer(NetServiceConsumer consumer) {
         if (consumer == null) {
             throw new NullPointerException("Net consumer null");
         }
@@ -246,7 +246,7 @@ public final class NetService extends Service<NetServiceConsumer> {
      * shutdown process or not.
      * @return True if the vm is into the shutdown porcess and false in the otherwise.
      */
-    public final boolean isShuttingDown() {
+    public boolean isShuttingDown() {
         return shuttingDown;
     }
 
@@ -255,7 +255,7 @@ public final class NetService extends Service<NetServiceConsumer> {
      * @param session Specific session.
      * @return Return true if the session is active into the
      */
-    public final boolean checkSession(NetSession session) {
+    public boolean checkSession(NetSession session) {
         boolean result = false;
 
         SelectableChannel channel = channels.get(session);
@@ -356,7 +356,7 @@ public final class NetService extends Service<NetServiceConsumer> {
      * @return Return the id of the created package.
      * @throws IOException Exception to the write operation.
      */
-    public final NetPackage writeData(NetSession session, byte[] data) throws IOException {
+    public NetPackage writeData(NetSession session, byte[] data) throws IOException {
         NetPackage netPackage;
         SelectableChannel channel = channels.get(session);
         if (channel != null) {
@@ -374,7 +374,7 @@ public final class NetService extends Service<NetServiceConsumer> {
      * This method force the selector wakeup in order to read information from channel.
      * @param session Session instance.
      */
-    public final void readData(NetSession session) throws IOException {
+    public void readData(NetSession session) throws IOException {
         SelectableChannel channel = channels.get(session);
         if(channel != null) {
             readWakeup(channel, session);
@@ -389,7 +389,7 @@ public final class NetService extends Service<NetServiceConsumer> {
      * @param session Session to disconnect.
      * @param message Disconnection message.
      */
-    public final void disconnect(NetSession session, String message) {
+    public void disconnect(NetSession session, String message) {
         SelectableChannel channel = channels.get(session);
         if (channel != null) {
             synchronized (channel) {
@@ -490,7 +490,7 @@ public final class NetService extends Service<NetServiceConsumer> {
      * @param session Session
      * @return Return true if the session is connected and false in the other case.
      */
-    public final boolean isConnected(NetSession session) {
+    public boolean isConnected(NetSession session) {
         return channels.containsKey(session);
     }
 
